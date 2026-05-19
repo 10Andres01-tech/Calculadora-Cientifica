@@ -1,0 +1,77 @@
+let p = {
+    teclas: document.querySelectorAll(".calculadora ul li"),
+    accion: null,
+    digito: null,
+    operaciones: document.querySelector("#operaciones"),
+    cantidadSigno: 0,
+    cantDecimal: false,
+    resultado: false,
+};
+
+let m = {
+
+    inicio: function () {
+
+        for (let i = 0; i < p.teclas.length; i++) {
+
+            p.teclas[i].addEventListener("click", m.oprimirTecla);
+
+        }
+
+    },
+
+    oprimirTecla: function (e) {
+
+        p.accion = e.target.getAttribute("class");
+        p.digito = e.target.innerHTML;
+
+        m.calculadora(p.accion);
+
+    },
+
+    calculadora: function (accion) {
+
+        switch (accion) {
+
+            case "numero":
+
+                if (p.operaciones.innerHTML == "0") {
+
+                    p.operaciones.innerHTML = p.digito;
+
+                } else {
+
+                    p.operaciones.innerHTML += p.digito;
+
+                }
+
+                break;
+
+            case "simbolo":
+
+                p.operaciones.innerHTML += p.digito;
+
+                break;
+
+            case "decimal":
+
+                p.operaciones.innerHTML += p.digito;
+
+                break;
+
+            case "igual":
+
+                p.operaciones.innerHTML = eval(p.operaciones.innerHTML);
+
+                break;
+
+        }
+
+    },
+    borrarCalculadora: function(){
+        p.operaciones.innerHTML = 0;
+    }
+
+};
+
+m.inicio();
